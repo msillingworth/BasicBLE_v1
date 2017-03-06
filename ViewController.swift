@@ -157,6 +157,10 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     // Instance method to get the manufacturers name
 
     func getManufacturerName(_ characteristic: CBCharacteristic, error: Error?) {
+        
+        var manufacturerName = String(data: characteristic.value, encoding: String.Encoding.utf8)
+        statusLabel.text = NSString(manufacturerName)
+        return
 //      var manufacturerName = NSString(initWithData: characteristic.value, encoding: NSUTF8StringEncoding)
 //      manufacturer = NSString(stringwithFormat: "Manufacturer: %@", manufacturerName)
 //      return
