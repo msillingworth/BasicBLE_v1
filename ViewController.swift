@@ -28,6 +28,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     
     // Properties
     var heartRateLabel: UILabel!
+    var manufacturer: UILabel!
     
     // APP Launch Screen
     
@@ -147,18 +148,37 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
 
 // MARK: -  CBCharacteristic Helper Methods
 
-// Instance method to get the heartRate BPM informtion
+    // Instance method to get the heartRate BPM informtion
 
-func getHeartRateBPM(_ characteristic: CBCharacteristic, error: Error?) {
-    // Get the Geart Rate Monitor Data
+    func getHeartRateBPM(_ characteristic: CBCharacteristic, error: Error?) {
+
+    }
+
+    // Instance method to get the manufacturers name
+
+    func getManufacturerName(_ characteristic: CBCharacteristic, error: Error?) {
+//      var manufacturerName = NSString(initWithData: characteristic.value, encoding: NSUTF8StringEncoding)
+//      manufacturer = NSString(stringwithFormat: "Manufacturer: %@", manufacturerName)
+//      return
+    }
+
+    // Instance method to get the device body location
+
+    func getBodyLocation(characteristic: CBCharacteristic) {
+        var sensorData: [NSData] = [characteristic.value! as NSData]
+
+        let deviceBodyLocations: [Int: String] = [0: "Other",
+                                                  1: "Chest",
+                                                  2: "Wrist",
+                                                  3: "Finger",
+                                                  4: "Hand",
+                                                  5: "Ear Lobe",
+                                                  6: "Foot",
+                                                  7: "Reserved"]
+        
+        let location: [Int] = sensorData[0]
+        
+        print("The device is located at the %@", deviceBodyLocations[location]!)
+        
+        }
     
-//    var hrmData = [UInt8]()
-//    var bpm: UInt8 = 0
-//    
-//    if (hrmData[0] & 0x01) == 0 {
-//        bpm = hrmData[1]
-//    } else {
-//        print(bpm)
-//        // bpm = CFSwapInt16HostToLittle(UInt8(hrmData[1]))
-//    }
-}
