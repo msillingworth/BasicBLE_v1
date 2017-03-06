@@ -124,6 +124,13 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         if characteristic.uuid == POLARH7_HRM_MEASUREMENT_CHARACTERISTIC_UUID {
             heartRateData = characteristic.value!
             print("Your heart rate is %@", heartRateData)
+            
+            if let str = String(data: heartRateData, encoding: String.Encoding.utf8) {
+                heartRateLabel.text = String(str)
+            } else {
+                print("not a valid UTF-8 sequence")
+            }
+            
             // heartRateLabel?.text = heartRateData
         } else if characteristic.uuid == POLARH7_HRM_MANUFACTURER_NAME_CHARACTERISTIC_UUID {
             manufacturerName = characteristic.value!
@@ -145,13 +152,13 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
 func getHeartRateBPM(_ characteristic: CBCharacteristic, error: Error?) {
     // Get the Geart Rate Monitor Data
     
-    var hrmData = [UInt8]()
-    var bpm: UInt8 = 0
-    
-    if (hrmData[0] & 0x01) == 0 {
-        bpm = hrmData[1]
-    } else {
-        print(bpm)
-        // bpm = CFSwapInt16HostToLittle(UInt8(hrmData[1]))
-    }
+//    var hrmData = [UInt8]()
+//    var bpm: UInt8 = 0
+//    
+//    if (hrmData[0] & 0x01) == 0 {
+//        bpm = hrmData[1]
+//    } else {
+//        print(bpm)
+//        // bpm = CFSwapInt16HostToLittle(UInt8(hrmData[1]))
+//    }
 }
